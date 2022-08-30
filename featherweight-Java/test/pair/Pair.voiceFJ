@@ -1,0 +1,49 @@
+define class Pair
+extends Object
+define field first
+type Object
+define field second
+type Object
+move next
+define constructor
+define parameter first
+type Object
+define parameter second
+type Object
+move next
+call super
+variable first
+variable second
+move next
+field assignment
+variable first
+variable first
+field assignment
+variable second
+variable second
+move next
+define method swapObject
+type Pair
+define parameter first
+type Object
+define parameter second
+type Object
+move next
+new instance Pair
+field access expression
+variable this
+name second 
+field access expression
+variable this
+name second
+move next
+move next
+method call expression
+new instance Pair
+new instance Object
+move next
+new instance Object
+move next
+move next
+call swapObject
+move next

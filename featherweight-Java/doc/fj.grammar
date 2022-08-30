@@ -1,0 +1,22 @@
+program ::= [ClassDeclaration] Exp                                   -- [ClassDeclaration]; Exp
+ClassDeclaration ::= class TypeName extends TypeName { ClassBody }   -- define class TypeName; extends TypeName; ClassBody
+ClassBody ::= [FieldDeclaration] Constructor [MethodDeclaration]     -- [FieldDeclaration]; Constructor; [MethodDeclaration]
+FieldDeclaration ::= TypeName VariableName;                          -- define field VariableName; type TypeName
+Constructor ::= TypeName ([Parameter]) { ConstructorBody }           -- define constructor;[Parameter]; ConstructorBody
+Parameter ::= TypeName VariableName                                  -- define parameter VariableName; type TypeName
+ConstructorBody ::= Super [FieldAssignment]                          -- Super; [FieldAssignment]
+Super ::= super([Argument]);                                         -- define super; [Argument]
+Argument ::= VariableName                                            -- VariableName
+FieldAssignment ::= this.VariableName = VariableName;                -- assignment statement; variable this; variable VariableName; variable VariableName
+MethodDeclaration ::= TypeName MethodName([Parameter]){ MethodBody } -- define method MethodName; type TypeName; [Parameter]; MethodBody
+MethodBody ::= return Exp                                            -- return expression
+Exp ::= VariableName                                                 -- variable VariableName
+     |  Exp . Field                                                  -- dot expression; Exp; Field
+     |  Exp.MethodName([Exp])                                        -- dot expression; Exp; call MethodName; [Exp]
+     |  new TypeName([Exp])                                          -- new instance TypeName; [Exp]
+     |  (TypeName) Exp                                               -- conversion expression; type TypeName; Exp
+Field ::= VariableName                                               -- VariableName
+VariableName ::= Name                                                -- Name
+MethodName ::= Name                                                  -- Name
+TypeName ::= Name                                                    -- Name
+Name ::= a-zA-Z                                                      -- words 

@@ -1,0 +1,60 @@
+module TestGeneration where
+
+import Generation
+import VoiceFJPretty
+import VCommand
+
+commands = [
+  ClassDef "Pair",
+  Extend "Object",
+  FieldDef "first",
+  TypeDef "Object",
+  FieldDef "second",
+  TypeDef "Object",
+  MoveNext,
+  ConstructorDef,
+  ParameterDef "first",
+  TypeDef "Object",
+  ParameterDef "second",
+  TypeDef "Object",
+  MoveNext,
+  CallSuper,
+  -- Variable "first",
+  -- Variable "second",
+  -- MoveNext,
+  MoveNext,
+  FieldAssignment,
+  Variable "first",
+  Variable "first",
+  FieldAssignment,
+  Variable "second",
+  Variable "second",
+  MoveNext,
+  MethodDef "swapObject",
+  TypeDef "Pair",
+  ParameterDef "first",
+  TypeDef "Object",
+  ParameterDef "second",
+  TypeDef "Object",
+  MoveNext,
+  NewInstanceExpr "Pair",
+  FieldAccessExpr,
+  Variable "this",
+  NameCommand "first",
+  FieldAccessExpr,
+  Variable "this",
+  NameCommand "first",
+  MoveNext,
+  MoveNext,
+  MethodCallExpr,
+  NewInstanceExpr "Pair",
+  NewInstanceExpr "Object",
+  MoveNext,
+  NewInstanceExpr "Object",
+  MoveNext,
+  MoveNext,
+  CallMethod "swapObject",
+  MoveNext
+  ]
+
+result = prettyProgram $ run commands

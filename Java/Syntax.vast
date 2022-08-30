@@ -1,0 +1,104 @@
+CompilationUnit = PackageDecl?; [ImportDecl]; [TypeDecl]
+PackageDecl = define package; NameChain
+ImportDecl = import package; NameChain
+  | import static package; NameChain 
+TypeDecl = ClassDecl
+  | InterfaceDecl
+ClassDecl = define class ClassName; [Modifier]; [TypeParam];ExtendType?; [ImplementType]; ClassBody
+  | define Modifier class ClassName; [TypeParam]; ExtendType?; [ImplementType]; ClassBody
+Modifier = public | private | protected | abstract | final | static 
+ | strict floating point | transient | volatile | native | synchronized
+
+NameChain = [Ident]
+ClassName = Ident  
+TypeName = Ident
+PName = name Ident
+TypeParam = type Ident
+Ident = words
+ExtendType = RefType
+ImplementType = RefType
+
+ClassBody = [Decl]
+Decl = MemberDecl
+MemberDecl 
+  = define field VarDeclId; [Modifier]; Type; VarInit?
+  | define simple field VarDeclId; Type; VarInit?
+  | define method MethodName; [Modifier]; MethodReturnType; [FormalParam]; [MethodExceptionType]; Exp?; MethodBody
+  | define simple method MethodName; MethodReturnType; [FormalParam]; MethodBody
+
+VarDeclId = Ident
+VarInit = Exp
+MethodReturnType = Type
+MethodExceptionType = ExceptionType
+MethodName = Ident
+FormalParam = define parameter VarDeclId; [Modifier]; Type
+MethodBody = Block
+Block = block; [BlockStmt]
+BlockStmt = Stmt
+Stmt = Block
+  | define if; Expr; Stmt; Stmt
+  | define while; Exp; Stmt
+  | define for; ForInit?; Exp?; [Exp]?; Stmt
+  | define enhanced for; variable Ident; Type; Expr; Stmt
+  | Exp
+  | define switch; [SwitchBlock]
+  | break | continue 
+  | return expression; Exp?; 
+  | throws exception; Exp
+  | define try catch; Block; [Catch]; Block?
+
+Catch = FormalParam; Block
+SwitchBlock = SwitchLabel; [BlockStmt]
+SwitchLabel = Exp | default
+ForInit = Type; [VarDecl]
+VarDecl = define variable VarDeclId; VarInit?
+ExceptionType = Type
+Argument = Exp
+Exp = Literal
+  | PName
+  | new instance ClassName; [TypeArgument]; [Argument]; ClassBody?
+  | FieldAccess
+  | MethodInvocation
+  | post increment expression; Exp
+  | post decrement expression; Exp
+  | pre increment expression; Exp
+  | pre decrement expression; Exp
+  | pre plus expression; Exp
+  | pre minus expression; Exp
+  | pre not expression; Exp
+  | cast expression; Type; Exp
+  | expression OP expression; Exp; Exp
+  | conditional expression; Exp; Exp; Exp
+  | assignment expression; Lhs; Exp
+  | lambda expression; LambdaParams; LambdaExpression
+
+Literal = integer Ident | string Ident | null
+
+
+OP = times | divide | plus | minus | less than | greater than | less equal | greater equal | double equal | not equal | double and | or
+
+Lhs = PName 
+    | FieldAccess
+    | ArrayIndex
+
+ArrayIndex = Exp; [Exp]
+
+FieldAccess 
+  = primary field access; Exp; Ident
+  | class field access; PName; Ident
+
+LambdaParams  = [FormalParam]
+    
+LambdaExpression = Block
+
+MethodInvocation = call Ident; [Argument]
+
+Type = PrimType
+     | RefType
+
+PrimType = type boolean | type byte | type short | type int | type long | type char | type float | type double
+
+RefType = ClassType
+ClassType = type ClassName; [TypeArgument]
+TypeArgument = wild card | RefType
+

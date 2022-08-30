@@ -1,0 +1,76 @@
+CompilationUnit ::= PackageDeclaration? [ImportDeclaration] ClassOrInterfaceDeclaration  { - }
+PackageDeclaration ::= package PackageName { define package packageName}
+packageName ::= ...
+
+ImportDeclaration ::= SingleTypeImportDeclaration
+
+SingleTypeImportDeclaration ::= import typeName { import typeName}
+typeName ::= ...
+
+ClassOrInterfaceDeclaration ::= ClassDeclaration 
+                              | InterfaceDeclaration
+
+ClassDeclaration ::= [ClassModifier] class Identifier [TypeParameter] super [Interface] ClassBody { define class Identifier }
+
+ClassModifier ::= public  { public }
+               |  private { private }
+
+Identifier ::= ... { word...}
+
+TypeParameter ::= TypeVariable 
+               |  TypeVariable extends TypeVariable { TypeVariable extends TypeVariable }
+               |  TypeVariable extends ClassOrInterfaceType { TypeVariable extends ClassOrInterfaceType }
+
+Interface ::= implements [InterfaceType]
+
+
+ClassBody ::= [ClassBodyDeclaration]
+
+ClassBodyDeclaration ::= ClassMemberDeclaration
+
+ClassMemberDeclaration ::= FieldDeclaration
+                        |  MethodDeclaration
+
+FieldDeclaration ::= [FieldModifier] Type variableDeclaratorId = VariableInitializer { define FieldModifier field variableDeclarator }
+
+variableDeclaratorId ::= Identifier 
+
+Type ::= PrimitiveType { type PrimitiveType }
+      |  ReferenceType { type ReferenceType }
+
+PrimitiveType ::= NumericType 
+               |  boolean
+NumericType ::= IntegralType
+              | FloatingPointType
+
+IntegralType ::= byte 
+              | short
+              | int { int }
+              | long
+              | char
+FloatingPointType ::= float
+                    | double
+
+boolean ::= true { boolean true }
+         |  false { boolean false }
+
+ReferenceType::= ClassOrInterfaceType
+              |  TypeVariable
+              |  ArrayType
+
+ClassOrInterfaceType::= ClassType { ClassType }
+                      | InterfaceType { InterfaceType }
+                      
+ClassType::= TypeDeclSpecifier [TypeArgument]
+InterfaceType::= TypeDeclSpecifier [TypeArgument]
+
+TypeDeclSpecifier::= TypeName { type TypeName }
+                 |  ClassOrInterfaceType . Identifier  { type ClassOrInterfaceType; dot Identifier }
+
+TypeVariable ::= Identifier
+TypeName::= Identifier
+         |  TypeName . Identifier {TypeName; dot Identifier}
+
+TypeVariable::= Identifier { word...}
+
+ArrayType::= Type [ ] { type list of Type }

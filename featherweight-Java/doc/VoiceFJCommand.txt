@@ -1,0 +1,25 @@
+Program = [ClassDeclaration]; Expr 
+ClassDeclaration = define class ClassName; extends ExtendName; ClassBody
+ClassBody = [FieldDeclaration]; Constructor; [MethodDeclaration]
+FieldDeclaration = define field VariableName; type TypeName
+Constructor = define constructor; [Parameter]; ConstructorBody
+Parameter = define parameter VariableName; type TypeName
+ConstructorBody = Super; [FieldAssignment]
+Super = call super; [Argument]
+Argument = Variable
+FieldAssignment = field assignment; name FieldName; Variable
+MethodDeclaration = define method MethodName; type TypeName; [Parameter]; MethodBody
+MethodBody = Expr
+Expr = Variable
+     | field access expression; Expr; name FieldName
+     | method call expression; Expr; call MethodName; [Expr]
+     | new instance TypeName; [Expr]
+     | conversion expression; type TypeName; Expr
+Variable = variable VariableName
+TypeName = Name
+ClassName = Name
+ExtendName = Name
+FieldName = Name
+MethodName = Name
+VariableName = Name
+Name = words
